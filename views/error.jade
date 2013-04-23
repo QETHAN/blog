@@ -1,0 +1,9 @@
+extends layout
+block content 
+  .alert.alert-error
+    h1 操作失败
+    hr
+    h4 对不起，该操作未能正确完成，失败的原因为:
+    pre#errorMessage=message
+    div
+      a.btn.btn-success(href='/') 确定

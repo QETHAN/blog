@@ -28,4 +28,43 @@ app.use express.session
   maxAge: 365 * 24 * 60 * 60 * 1000
 
 app.get '/', (req, res)->
-  return res.render 'layout'
+  return res.render 'dashboard'
+
+app.get '/signin', (req, res)->
+	return res.render 'signin'
+
+app.post '/signin', (req, res, next)->
+	console.log '----->signin'
+	next()
+
+app.get '/signup', (req, res)->
+	return res.render 'signup'
+
+app.post '/signup', (req, res, next)->
+	next()
+
+app.get '*', (req, res, n)->
+  n 404
+
+messages = 
+  '404': '找不到该项，该功能暂不可用或数据不存在'
+  '500': '服务器错误'
+
+app.use (err, req, res, n)->
+  return res.send 500, err.message + '\n' if (req.get 'user-agent').match /curl/ 
+  if err.constructor == Number
+    res.statusCode = err
+    return n new Error messages[String err]
+  res.statusCode = 500 if res.statusCode==200
+  n err
+  
+app.configure 'development', ->
+  app.use (err, req, res, n)->
+    res.render 'error', 
+      message: err.stack
+  
+app.configure 'production', ->
+  app.use (err, req, res, n)->
+    console.error err.message
+    res.render 'error', 
+      message: err.message

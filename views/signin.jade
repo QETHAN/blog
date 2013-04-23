@@ -1,0 +1,14 @@
+extends html
+append head
+  link(rel='stylesheet',href='/blog_css/signin.css',type='text/css')
+block body 
+  .container
+    form.form-signin(action='/signin',method='post')
+      h2.form-signin-heading Please sign in
+      input(type="text", class="input-block-level", placeholder="Email address")
+      input(type="password", class="input-block-level", placeholder="Password")
+      label.checkbox
+        input(type="checkbox", value="remember-me") 
+        |Remember me
+        
+      input.btn.btn-large.btn-primary(type="submit",value='Sign in') 

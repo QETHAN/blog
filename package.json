@@ -23,6 +23,7 @@
     "connect-mongo": "*",
     "coffee-script": "*",
     "iced-coffee-script": "*",
-    "jade": "~0.29.0"
+    "jade": "~0.29.0",
+    "mongoskin": "~0.5.0"
   }
 }

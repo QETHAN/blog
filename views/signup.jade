@@ -1,0 +1,12 @@
+extends html
+append head
+  link(rel='stylesheet',href='/blog_css/signin.css',type='text/css')
+block body 
+  .container
+    form.form-signin(action='/signup')
+      h2.form-signin-heading Please sign up
+      input(type="text", class="input-block-level", placeholder="Email address")
+      input(type="password", class="input-block-level", placeholder="Password")
+      input(type="password", class="input-block-level", placeholder="Password Confirm")
+        
+      input.btn.btn-large.btn-primary(type="submit",value='Sign up') 
