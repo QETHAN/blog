@@ -1,0 +1,58 @@
+!!!
+html(lang='zh-CN')
+  head
+    meta(content='text/html; charset=UTF-8', http-equiv='Content-Type')
+    //- title Bootstrap, from Twitter
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="")
+     <!-- Placed at the end of the document so the pages load faster -->
+    script(src="/jquery/jquery.js")
+    script(src="/bootstrap/bootstrap-transition.js")
+    script(src="/bootstrap/bootstrap-alert.js")
+    script(src="/bootstrap/bootstrap-modal.js")
+    script(src="/bootstrap/bootstrap-dropdown.js")
+    script(src="/bootstrap/bootstrap-scrollspy.js")
+    script(src="/bootstrap/bootstrap-tab.js")
+    script(src="/bootstrap/bootstrap-tooltip.js")
+    script(src="/bootstrap/bootstrap-popover.js")
+    script(src="/bootstrap/bootstrap-button.js")
+    script(src="/bootstrap/bootstrap-collapse.js")
+    script(src="/bootstrap/bootstrap-carousel.js")
+    script(src="/bootstrap/bootstrap-typeahead.js")
+    <!-- Le styles -->
+    link(href="/bootswatch/spacelab/bootstrap.css",rel="stylesheet")
+    style
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+    link(href="/bootswatch/default/bootstrap-responsive.css", rel="stylesheet")
+   
+    //if IE 8
+    - var ie8 = 8;
+    :coffeescript
+      moment.lang 'zh-cn'
+      if !window.localStorage || typeof(ie8)!='undefined'
+        location.href = '/oldbrowser.html'
+      
+    block header
+      title=process.env.SYSNAME
+  //- body(style='background-color:#fafafa;')
+  block body
+
+  footer
+    p.text-center.
+      Copyright © 2013 - QETHAN

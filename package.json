@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "description": "ethan's blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QETHAN/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "QETHAN"
+  ],
+  "author": "QETHAN",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "bfc164ae2199cc3a40409e55d865cdb7feef3231",
+  "dependencies": {
+    "express": "~3.2.0",
+    "connect-mongo": "*",
+    "coffee-script": "*",
+    "iced-coffee-script": "*",
+    "jade": "~0.29.0"
+  }
+}

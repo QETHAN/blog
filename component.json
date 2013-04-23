@@ -1,0 +1,13 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "main": "index.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "bootswatch": "~2.3.1"
+  }
+}
