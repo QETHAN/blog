@@ -1,6 +1,7 @@
 extends html
 
 block body
+
   .navbar.navbar-inverse.navbar-fixed-top
     .navbar-inner
       .container-fluid
@@ -11,10 +12,18 @@ block body
         
         a.brand(href="#")= process.env.SYSNAME
         .nav-collapse.collapse
-          p.navbar-text.pull-right
-            |Logged in as 
-            a(href="#",class="navbar-link") Username
-          
+          ul.nav.navbar-text.pull-right
+            //- li=user
+            if user
+              li
+                a(href="#")=user
+              li 
+                a(href='/logout') sign out
+            else
+              li
+                a(href='/signin') Sign in
+              li
+                a(href='/signup') Sign up
           ul.nav
             li.active 
               a(href="#") Home

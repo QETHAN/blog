@@ -5,10 +5,11 @@ block body
   .container
     form.form-signin(action='/signin',method='post')
       h2.form-signin-heading Please sign in
-      input(type="text", class="input-block-level", placeholder="Email address")
-      input(type="password", class="input-block-level", placeholder="Password")
+      input(type='hidden', id='referer', name='referer', value='#{referer}')
+      input(type="text", class="input-block-level", id='email', name='email',placeholder="Email address")
+      input(type="password", class="input-block-level", id='password', name='password', placeholder="Password")
       label.checkbox
-        input(type="checkbox", value="remember-me") 
+        input(type="checkbox", id='remember', name='remember', value="remember-me") 
         |Remember me
         
       input.btn.btn-large.btn-primary(type="submit",value='Sign in') 

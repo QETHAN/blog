@@ -1,6 +1,7 @@
 express = require 'express'
 path = require 'path'
 MongoStore = (require 'connect-mongo')(express)
+db = require './db/index'
 module.exports = app = express()
 
 
@@ -28,20 +29,47 @@ app.use express.session
   maxAge: 365 * 24 * 60 * 60 * 1000
 
 app.get '/', (req, res)->
+  res.locals.user = req.session.user || null
   return res.render 'dashboard'
 
-app.get '/signin', (req, res)->
-	return res.render 'signin'
+app.get '/signin', (req, res, next)->
+  unless req.session.user
+    res.locals.referer = req.get('Referer') || '/'
+    return res.render 'signin'
+  res.redirect 'back'
 
 app.post '/signin', (req, res, next)->
-	console.log '----->signin'
-	next()
+  await db.users.findOne ('email': req.body.email,'password': req.body.password), defer e, item
+  return next e if e 
+  return next new Error '用户名或密码错误!' unless item
+  req.session.user = item.email 
+  res.locals.user = req.session.user
+
+  if req.body.remember is 'remember-me'
+	  res.cookie('user',item.email) 
+
+  return res.redirect req.body.referer
+
+app.get '/logout', (req, res, next)->
+	req.session.user = undefined
+	return res.redirect '/'
 
 app.get '/signup', (req, res)->
 	return res.render 'signup'
 
 app.post '/signup', (req, res, next)->
-	next()
+	await db.users.findOne 'email':req.body.email, defer e, item
+	return next e if e
+	return next new Error '用户邮箱已经注册!' if item?
+
+	if req.body.password != req.body.repassword
+		return next new Error '两次密码输入不一致!'
+
+	await db.users.insert ('email':req.body.email, 'password':req.body.password), defer e, result
+	return next e if e
+	req.session.user = result.email if result?
+
+	return res.redirect '/'
 
 app.get '*', (req, res, n)->
   n 404
@@ -60,11 +88,13 @@ app.use (err, req, res, n)->
   
 app.configure 'development', ->
   app.use (err, req, res, n)->
+    res.locals.user = req.session.user || null
     res.render 'error', 
       message: err.stack
   
 app.configure 'production', ->
   app.use (err, req, res, n)->
     console.error err.message
+    res.locals.user = req.session.user || null
     res.render 'error', 
       message: err.message
