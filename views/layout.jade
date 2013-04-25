@@ -1,7 +1,7 @@
 extends html
 
 block body
-
+  - user = typeof(user)=='undefined'?null:user
   .navbar.navbar-inverse.navbar-fixed-top
     .navbar-inner
       .container-fluid
@@ -26,9 +26,9 @@ block body
                 a(href='/signup') Sign up
           ul.nav
             li.active 
-              a(href="#") Home
+              a(href="/") Home
             li
-              a(href="#about") About
+              a(href="/about") About
             li
               a(href="#contact") Contact
           <!--/.nav-collapse -->

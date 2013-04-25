@@ -1,39 +1,28 @@
 extends layout
 block content
+  script
+    $(function(){
+        $('.container-fluid .row-fluid ul:eq(0) li:not(:first)').bind('click',function(){
+            $(this).parent().children().each(function(){
+                $(this).removeClass('active');
+              });
+            $(this).addClass('active');
+          });
+      });
   .container-fluid
       .row-fluid
         .span3
           .well.sidebar-nav
             ul.nav.nav-list
-              li.nav-header Sidebar
+              li.nav-header 自由时间
               li.active
-                a(href="#") Link
+                a(href="#") 写一篇
               li
-                a(href="#") Link
+                a(href="#") 列表Style
               li
-                a(href="#") Link
+                a(href="#") 时间线
               li
-                a(href="#") Link
-              li.nav-header Sidebar
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li.nav-header Sidebar
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
-              li
-                a(href="#") Link
+                a(href="#") 统计
             
         .span9
           .hero-unit

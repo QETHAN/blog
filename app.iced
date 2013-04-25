@@ -2,6 +2,8 @@ express = require 'express'
 path = require 'path'
 MongoStore = (require 'connect-mongo')(express)
 db = require './db/index'
+md = require( "markdown" ).markdown
+
 module.exports = app = express()
 
 
@@ -70,6 +72,12 @@ app.post '/signup', (req, res, next)->
 	req.session.user = result.email if result?
 
 	return res.redirect '/'
+
+app.get '/about', (req, res, next)->
+  sabout = md.toHTML '> 在痛苦和挣扎中奔跑在通往美好的大路上' 
+  res.locals.sabout = sabout
+  res.locals.user = req.session.user
+  return res.render 'about'
 
 app.get '*', (req, res, n)->
   n 404
