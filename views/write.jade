@@ -1,0 +1,60 @@
+extends layout
+block content
+	script(src='/EpicEditor/epiceditor/js/epiceditor.min.js')
+
+	script
+		$(function(){
+			var editor = new EpicEditor().load();
+
+			$('#save').click(function(){
+				//校验数据
+				rTitle = /<[^>].*?>?/g;
+				if($.trim($('#title').val()).length<1) {
+					$('#title').popover({
+						'content':'标题不太对劲儿啊:('
+					});
+					$('#title').popover('show');
+					return false;
+				} else if(rTitle.test($.trim($('#title').val()))) {
+					$('#title').popover({
+							'content':'标题不能包含HTML标签:('
+						});
+						$('#title').popover('show');
+						return false;
+				}
+			
+				//- 允许出现空行
+				if($.trim(editor.getElement('editor').body.innerHTML).length<1) {
+					$('#epiceditor').popover({
+						'content':'我看到了一片空白:(',
+						'placement':'bottom'
+					});
+					$('#epiceditor').popover('show');
+					setTimeout(function(){$('#epiceditor').popover('hide');}, 3000);
+					return false;
+				}
+				//- 保证预览，传递的是预览之后的数据格式
+				if(!editor.is('preview')) {
+					editor.preview();
+					editor.edit();
+				}
+				$('#data').val(editor.getElement('previewer').body.innerHTML);
+
+				$('#myform').submit();
+			});
+		});
+	.container
+		.row-fluid
+			.form-horizontal
+				form(id="myform", method="post", action="/write")
+					input(type='hidden',name='data',id='data')
+					.control-group
+						label.control-label(for='title') 给个标题
+						.controls
+							input.span9(type='text',id='title',name='title',data-toggle='popover')
+					.control-group
+						#epiceditor(style='height:700px;',data-toggle='popover')
+							.span12.markItUp(id='content',name='content')
+			.form-actions.text-center
+				input.btn.btn-primary(type='submit',id='save',name='save',value='保存') 
+				input.offset1.btn(type='button',id='discard',name='discard',value='丢弃')

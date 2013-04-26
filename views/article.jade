@@ -1,0 +1,17 @@
+extends layout
+block content
+	link(href='/EpicEditor/epiceditor/themes/preview/github.css',rel='stylesheet')
+	style
+		.title {
+			font-size:24px;
+			font-weight:bold;
+		}
+	.container
+		.row-fluid
+			.span12
+			.title.span6.offset3.text-center
+				!=article.title
+			.span12
+			.span12
+				#epiceditor-wrapper
+					!=article.data

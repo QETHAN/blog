@@ -10,10 +10,9 @@ block body
           span.icon-bar
           span.icon-bar
         
-        a.brand(href="#")= process.env.SYSNAME
+        a.brand(href="/")= process.env.SYSNAME
         .nav-collapse.collapse
           ul.nav.navbar-text.pull-right
-            //- li=user
             if user
               li
                 a(href="#")=user

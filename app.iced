@@ -2,10 +2,8 @@ express = require 'express'
 path = require 'path'
 MongoStore = (require 'connect-mongo')(express)
 db = require './db/index'
-md = require( "markdown" ).markdown
 
 module.exports = app = express()
-
 
 app.use express.static path.join __dirname, 'components'
 app.use express.static path.join __dirname, 'public'
@@ -78,6 +76,17 @@ app.get '/about', (req, res, next)->
   res.locals.sabout = sabout
   res.locals.user = req.session.user
   return res.render 'about'
+
+app.get '/write', (req, res, next)->
+  return res.render 'write'
+
+app.post '/write', (req, res, next)->
+
+  res.locals.article = 
+    title: req.body.title.replace(/<[^>].*?>?/g,""),
+    data: req.body.data
+  res.locals.user = req.session.user 
+  res.render 'article'
 
 app.get '*', (req, res, n)->
   n 404

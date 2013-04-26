@@ -1,0 +1,8 @@
+{
+  "name": "EpicEditor",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OscarGodson/EpicEditor.git"
+  }
+}
